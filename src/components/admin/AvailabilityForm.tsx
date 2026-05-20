@@ -28,7 +28,7 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
   async function saveWeekly() {
     setSavingWeekly(true)
     const supabase = createClient()
-    await Promise.all(
+    const results = await Promise.all(
       weeklyState.map(d =>
         supabase.from('weekly_availability').update({
           is_open: d.is_open,
@@ -37,28 +37,32 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
         }).eq('id', d.id)
       )
     )
+    const failed = results.some(r => r.error)
+    if (failed) alert('שגיאה בשמירת לוח השבועי. נסי שוב.')
+    else onRefresh()
     setSavingWeekly(false)
-    onRefresh()
   }
 
   async function addException() {
     if (!newExDate) return
     const supabase = createClient()
-    await supabase.from('availability_exceptions').upsert({
+    const { error } = await supabase.from('availability_exceptions').upsert({
       date: newExDate,
       is_open: newExIsOpen,
       open_time: newExIsOpen ? newExOpenTime : null,
       close_time: newExIsOpen ? newExCloseTime : null,
       note: newExNote || null,
     }, { onConflict: 'date' })
+    if (error) { alert('שגיאה בהוספת החריגה. נסי שוב.'); return }
     setNewExDate(''); setNewExNote(''); setNewExIsOpen(false)
     onRefresh()
   }
 
   async function deleteException(id: string) {
     const supabase = createClient()
-    await supabase.from('availability_exceptions').delete().eq('id', id)
-    onRefresh()
+    const { error } = await supabase.from('availability_exceptions').delete().eq('id', id)
+    if (error) alert('שגיאה במחיקת החריגה. נסי שוב.')
+    else onRefresh()
   }
 
   return (

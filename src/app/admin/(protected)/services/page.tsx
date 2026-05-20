@@ -20,19 +20,19 @@ export default function ServicesPage() {
 
   async function handleSave(data: Partial<Service>) {
     const supabase = createClient()
-    if (editing) {
-      await supabase.from('services').update(data).eq('id', editing.id)
-    } else {
-      await supabase.from('services').insert(data)
-    }
-    load()
+    const { error } = editing
+      ? await supabase.from('services').update(data).eq('id', editing.id)
+      : await supabase.from('services').insert(data)
+    if (error) alert('שגיאה בשמירת השירות. נסי שוב.')
+    else load()
   }
 
   async function handleDeactivate(id: string) {
     if (!confirm('להסיר את השירות מהרשימה הפעילה?')) return
     const supabase = createClient()
-    await supabase.from('services').update({ is_active: false }).eq('id', id)
-    load()
+    const { error } = await supabase.from('services').update({ is_active: false }).eq('id', id)
+    if (error) alert('שגיאה בהסרת השירות. נסי שוב.')
+    else load()
   }
 
   function openEdit(s: Service) { setEditing(s); setModalOpen(true) }

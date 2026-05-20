@@ -33,8 +33,9 @@ export default function AppointmentsTable({ appointments }: Props) {
   async function updateStatus(id: string, status: AppointmentStatus) {
     setLoading(id + status)
     const supabase = createClient()
-    await supabase.from('appointments').update({ status }).eq('id', id)
-    router.refresh()
+    const { error } = await supabase.from('appointments').update({ status }).eq('id', id)
+    if (error) alert('שגיאה בעדכון הסטטוס. נסי שוב.')
+    else router.refresh()
     setLoading(null)
   }
 
