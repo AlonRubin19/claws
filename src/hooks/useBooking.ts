@@ -21,11 +21,17 @@ export function useBooking(services: Service[]) {
     setSlotsLoading(true)
     setSelectedTime(null)
     setError(null)
-    const dateStr = format(date, 'yyyy-MM-dd')
-    const res = await fetch(`/api/slots?date=${dateStr}&serviceId=${serviceId}`)
-    const data = await res.json()
-    setSlots(data.slots ?? [])
-    setSlotsLoading(false)
+    try {
+      const dateStr = format(date, 'yyyy-MM-dd')
+      const res = await fetch(`/api/slots?date=${dateStr}&serviceId=${serviceId}`)
+      const data = await res.json()
+      setSlots(data.slots ?? [])
+    } catch {
+      setError('שגיאה בטעינת השעות הפנויות')
+      setSlots([])
+    } finally {
+      setSlotsLoading(false)
+    }
   }, [])
 
   const handleServiceSelect = useCallback((id: string) => {

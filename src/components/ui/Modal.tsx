@@ -11,10 +11,11 @@ interface ModalProps {
 
 export default function Modal({ open, onClose, title, children }: ModalProps) {
   useEffect(() => {
+    if (!open) return
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
-  }, [onClose])
+  }, [open, onClose])
 
   if (!open) return null
 
