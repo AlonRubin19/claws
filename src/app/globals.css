@@ -19,8 +19,8 @@
   --color-terracotta: #c9866f;
   --color-espresso: #4a3728;
   --color-sand: #f5ede8;
-  --font-family-serif: Georgia, serif;
-  --font-family-sans: system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-sans: system-ui, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
