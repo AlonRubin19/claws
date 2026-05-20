@@ -8,7 +8,22 @@
       "Bash(Get-ChildItem C:/projects/claws)",
       "Bash(Select-Object Name)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\(JSON.stringify\\(p.scripts, null, 2\\)\\)\")",
+      "Bash(node -e \"const p = require\\('./package.json'\\); const k=['@supabase/supabase-js','@supabase/ssr','date-fns']; k.forEach\\(d=>console.log\\(d+':', p.dependencies[d]\\)\\); const t=['jest','ts-jest','@testing-library/react']; t.forEach\\(d=>console.log\\(d+':', p.devDependencies[d]\\)\\)\")",
+      "Bash(git commit *)",
+      "Bash(node -e \"const v = require\\('./node_modules/next/package.json'\\).version; console.log\\('next:', v\\)\")",
+      "Bash(node -e \"const v = require\\('./node_modules/tailwindcss/package.json'\\).version; console.log\\('tailwindcss:', v\\)\")",
+      "Bash(node -e \"const v = require\\('./node_modules/jest/package.json'\\).version; console.log\\('jest:', v\\)\")",
+      "Bash(node -e \"const v = require\\('./node_modules/ts-jest/package.json'\\).version; console.log\\('ts-jest:', v\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npx jest *)",
+      "Bash(New-Item -ItemType Directory -Path \"C:/projects/claws/src/app/api/slots\" -Force)",
+      "Bash(New-Item -ItemType Directory -Path \"C:/projects/claws/src/app/api/bookings\" -Force)",
+      "Bash(mkdir -p C:/projects/claws/src/app/confirmation/[token])",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:/projects/claws/src/app/admin/\\(protected\\)\" -Force)"
     ]
   }
 }
