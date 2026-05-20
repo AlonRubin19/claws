@@ -1,11 +1,11 @@
-import type { WeeklyAvailability, AvailabilityException, Appointment } from '@/lib/types'
+import type { WeeklyAvailability, AvailabilityException, AppointmentSlot } from '@/lib/types'
 
 interface ComputeSlotsParams {
   date: string
   serviceDurationMin: number
   weeklyAvailability: WeeklyAvailability | null
   exception: AvailabilityException | null
-  existingAppointments: Appointment[]
+  existingAppointments: AppointmentSlot[]
   now: Date
 }
 

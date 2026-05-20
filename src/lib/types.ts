@@ -44,3 +44,9 @@ export interface TimeSlot {
   time: string   // "HH:MM"
   available: boolean
 }
+
+export interface AppointmentSlot {
+  start_time: string
+  end_time: string
+  status: AppointmentStatus
+}

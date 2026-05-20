@@ -1,5 +1,5 @@
 import { computeAvailableSlots } from '@/lib/slots'
-import type { WeeklyAvailability, AvailabilityException, Appointment } from '@/lib/types'
+import type { WeeklyAvailability, AvailabilityException, AppointmentSlot } from '@/lib/types'
 
 const baseAvailability: WeeklyAvailability = {
   id: '1', day_of_week: 0, open_time: '10:00', close_time: '13:00', is_open: true,
@@ -67,11 +67,8 @@ describe('computeAvailableSlots', () => {
   })
 
   it('blocks slots overlapping an existing appointment', () => {
-    const appointment: Appointment = {
-      id: 'a1', token: 't1', service_id: 's1',
-      customer_name: 'Test', customer_phone: '050',
-      date: '2026-06-07', start_time: '11:00', end_time: '12:00',
-      status: 'confirmed', created_at: '',
+    const appointment: AppointmentSlot = {
+      start_time: '11:00', end_time: '12:00', status: 'confirmed',
     }
     const slots = computeAvailableSlots({
       date: '2026-06-07',
@@ -95,11 +92,8 @@ describe('computeAvailableSlots', () => {
   })
 
   it('ignores cancelled appointments when blocking slots', () => {
-    const cancelled: Appointment = {
-      id: 'a2', token: 't2', service_id: 's1',
-      customer_name: 'Test', customer_phone: '050',
-      date: '2026-06-07', start_time: '11:00', end_time: '12:00',
-      status: 'cancelled', created_at: '',
+    const cancelled: AppointmentSlot = {
+      start_time: '11:00', end_time: '12:00', status: 'cancelled',
     }
     const slots = computeAvailableSlots({
       date: '2026-06-07',
