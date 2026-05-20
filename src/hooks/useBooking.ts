@@ -57,28 +57,33 @@ export function useBooking(services: Service[]) {
     }
     setSubmitLoading(true)
     setError(null)
-    const res = await fetch('/api/bookings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        serviceId: selectedServiceId,
-        date: format(selectedDate, 'yyyy-MM-dd'),
-        startTime: selectedTime,
-        customerName: name,
-        customerPhone: phone,
-      }),
-    })
-    const data = await res.json()
-    if (res.status === 409) {
-      setError('התור הזה כבר תפוס. אנא בחרי שעה אחרת.')
-      if (selectedDate && selectedServiceId) fetchSlots(selectedDate, selectedServiceId)
-      setSelectedTime(null)
-    } else if (!res.ok) {
-      setError(data.error ?? 'שגיאה בשליחת הטופס')
-    } else {
-      router.push(`/confirmation/${data.token}`)
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceId: selectedServiceId,
+          date: format(selectedDate, 'yyyy-MM-dd'),
+          startTime: selectedTime,
+          customerName: name,
+          customerPhone: phone,
+        }),
+      })
+      const data = await res.json()
+      if (res.status === 409) {
+        setError('התור הזה כבר תפוס. אנא בחרי שעה אחרת.')
+        if (selectedDate && selectedServiceId) fetchSlots(selectedDate, selectedServiceId)
+        setSelectedTime(null)
+      } else if (!res.ok) {
+        setError(data.error ?? 'שגיאה בשליחת הטופס')
+      } else {
+        router.push(`/confirmation/${data.token}`)
+      }
+    } catch {
+      setError('שגיאה בשליחת הטופס. אנא נסי שוב.')
+    } finally {
+      setSubmitLoading(false)
     }
-    setSubmitLoading(false)
   }, [selectedServiceId, selectedDate, selectedTime, name, phone, router, fetchSlots])
 
   return {
