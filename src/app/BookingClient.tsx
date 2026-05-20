@@ -1,0 +1,106 @@
+'use client'
+
+import { useMemo } from 'react'
+import { format, addDays } from 'date-fns'
+import ServiceGrid from '@/components/booking/ServiceGrid'
+import DateStrip from '@/components/booking/DateStrip'
+import TimeSlots from '@/components/booking/TimeSlots'
+import CustomerForm from '@/components/booking/CustomerForm'
+import { useBooking } from '@/hooks/useBooking'
+import type { Service } from '@/lib/types'
+
+interface WeeklyRow { day_of_week: number; is_open: boolean }
+interface ExceptionRow { date: string; is_open: boolean }
+
+interface Props {
+  services: Service[]
+  weeklyAvailability: WeeklyRow[]
+  exceptions: ExceptionRow[]
+}
+
+export default function BookingClient({ services, weeklyAvailability, exceptions }: Props) {
+  const booking = useBooking(services)
+
+  const closedDates = useMemo(() => {
+    const closed = new Set<string>()
+    const today = new Date()
+    const exMap = new Map(exceptions.map(e => [e.date, e.is_open]))
+
+    for (let i = 0; i < 14; i++) {
+      const day = addDays(today, i)
+      const dateStr = format(day, 'yyyy-MM-dd')
+      if (exMap.has(dateStr)) {
+        if (!exMap.get(dateStr)) closed.add(dateStr)
+      } else {
+        const dow = day.getDay()
+        const wa = weeklyAvailability.find(w => w.day_of_week === dow)
+        if (!wa || !wa.is_open) closed.add(dateStr)
+      }
+    }
+    return closed
+  }, [weeklyAvailability, exceptions])
+
+  return (
+    <div className="min-h-screen bg-cream">
+      <header className="bg-gradient-to-l from-blush to-rose px-6 py-8 text-center shadow-sm">
+        <h1 className="text-3xl font-serif font-bold tracking-widest text-white">✦ CLAWS ✦</h1>
+        <p className="mt-1 text-sm text-white/80 tracking-wider">סטודיו לציפורניים · קביעת תור</p>
+      </header>
+
+      <main className="mx-auto max-w-lg px-4 py-6 space-y-6">
+        <section>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+            בחרי שירות
+          </h2>
+          <ServiceGrid
+            services={services}
+            selected={booking.selectedServiceId}
+            onSelect={booking.handleServiceSelect}
+          />
+        </section>
+
+        <section>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+            בחרי תאריך
+          </h2>
+          <DateStrip
+            closedDates={closedDates}
+            selected={booking.selectedDate}
+            onSelect={booking.handleDateSelect}
+          />
+        </section>
+
+        {booking.selectedServiceId && booking.selectedDate && (
+          <section>
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+              שעות פנויות
+            </h2>
+            <TimeSlots
+              slots={booking.slots}
+              selected={booking.selectedTime}
+              loading={booking.slotsLoading}
+              onSelect={booking.setSelectedTime}
+            />
+          </section>
+        )}
+
+        {booking.selectedTime && (
+          <section>
+            <div className="mb-4 rounded-xl bg-rose/10 px-4 py-3 text-sm text-espresso">
+              תור ב{booking.selectedDate && format(booking.selectedDate, 'd/M/yyyy')} בשעה {booking.selectedTime}
+            </div>
+            <CustomerForm
+              name={booking.name}
+              phone={booking.phone}
+              onNameChange={booking.setName}
+              onPhoneChange={booking.setPhone}
+              onSubmit={booking.handleSubmit}
+              loading={booking.submitLoading}
+              error={booking.error}
+            />
+          </section>
+        )}
+      </main>
+    </div>
+  )
+}
