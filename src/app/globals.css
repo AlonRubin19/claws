@@ -31,12 +31,32 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdf6f0;
+  color: #4a3728;
 }
 
 @layer base {
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .label-style {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c9866f;
+    margin-bottom: 0.25rem;
+  }
+  .input-style {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 2px solid #f5ede8;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: #4a3728;
+    outline: none;
+  }
+  .input-style:focus {
+    border-color: #e8a89a;
+  }
 }
