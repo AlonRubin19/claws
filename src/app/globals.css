@@ -12,6 +12,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-cream: #fdf6f0;
+  --color-blush: #f7c5b8;
+  --color-rose: #e8a89a;
+  --color-terracotta: #c9866f;
+  --color-espresso: #4a3728;
+  --color-sand: #f5ede8;
+  --font-family-serif: Georgia, serif;
+  --font-family-sans: system-ui, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +34,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }
