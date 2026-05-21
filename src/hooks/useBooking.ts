@@ -10,7 +10,8 @@ export function useBooking(services: Service[]) {
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
-  const [slots, setSlots] = useState<string[]>([])
+  const [availableSlots, setAvailableSlots] = useState<string[]>([])
+  const [bookedSlots, setBookedSlots] = useState<string[]>([])
   const [slotsLoading, setSlotsLoading] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -25,10 +26,12 @@ export function useBooking(services: Service[]) {
       const dateStr = format(date, 'yyyy-MM-dd')
       const res = await fetch(`/api/slots?date=${dateStr}&serviceId=${serviceId}`)
       const data = await res.json()
-      setSlots(data.slots ?? [])
+      setAvailableSlots(data.available ?? [])
+      setBookedSlots(data.booked ?? [])
     } catch {
       setError('שגיאה בטעינת השעות הפנויות')
-      setSlots([])
+      setAvailableSlots([])
+      setBookedSlots([])
     } finally {
       setSlotsLoading(false)
     }
@@ -37,12 +40,16 @@ export function useBooking(services: Service[]) {
   const handleServiceSelect = useCallback((id: string) => {
     setSelectedServiceId(id)
     setSelectedTime(null)
+    setAvailableSlots([])
+    setBookedSlots([])
     if (selectedDate) fetchSlots(selectedDate, id)
   }, [selectedDate, fetchSlots])
 
   const handleDateSelect = useCallback((date: Date) => {
     setSelectedDate(date)
     setSelectedTime(null)
+    setAvailableSlots([])
+    setBookedSlots([])
     if (selectedServiceId) fetchSlots(date, selectedServiceId)
   }, [selectedServiceId, fetchSlots])
 
@@ -89,7 +96,7 @@ export function useBooking(services: Service[]) {
   return {
     selectedServiceId, handleServiceSelect,
     selectedDate, handleDateSelect,
-    slots, slotsLoading, selectedTime, setSelectedTime,
+    availableSlots, bookedSlots, slotsLoading, selectedTime, setSelectedTime,
     name, setName, phone, setPhone,
     submitLoading, error, handleSubmit,
   }

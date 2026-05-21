@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { computeAvailableSlots } from '@/lib/slots'
+import { computeAllSlots } from '@/lib/slots'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
     .eq('date', date)
     .neq('status', 'cancelled')
 
-  const slots = computeAvailableSlots({
+  const { available, booked } = computeAllSlots({
     date,
     serviceDurationMin: service.duration_min,
     weeklyAvailability: weekly ?? null,
@@ -51,5 +51,5 @@ export async function GET(req: NextRequest) {
     now: new Date(),
   })
 
-  return NextResponse.json({ slots })
+  return NextResponse.json({ available, booked })
 }

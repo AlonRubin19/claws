@@ -1,4 +1,4 @@
-import { computeAvailableSlots } from '@/lib/slots'
+import { computeAvailableSlots, computeAllSlots } from '@/lib/slots'
 import type { WeeklyAvailability, AvailabilityException, AppointmentSlot } from '@/lib/types'
 
 const baseAvailability: WeeklyAvailability = {
@@ -118,5 +118,52 @@ describe('computeAvailableSlots', () => {
     expect(slots).not.toContain('10:00')
     expect(slots).not.toContain('10:30')
     expect(slots).toContain('11:00')
+  })
+})
+
+describe('computeAllSlots', () => {
+  it('returns available and booked split correctly', () => {
+    const booked: AppointmentSlot = { start_time: '11:00', end_time: '12:00', status: 'confirmed' }
+    const result = computeAllSlots({
+      date: '2026-06-07',
+      serviceDurationMin: 60,
+      weeklyAvailability: baseAvailability,
+      exception: null,
+      existingAppointments: [booked],
+      now: new Date('2026-06-07T07:00:00'),
+    })
+    expect(result.available).toContain('10:00')
+    expect(result.available).toContain('12:00')
+    expect(result.booked).toContain('10:30')
+    expect(result.booked).toContain('11:00')
+    expect(result.booked).not.toContain('10:00')
+    expect(result.available).not.toContain('10:30')
+  })
+
+  it('returns empty arrays when closed', () => {
+    const result = computeAllSlots({
+      date: '2026-06-07',
+      serviceDurationMin: 60,
+      weeklyAvailability: { ...baseAvailability, is_open: false },
+      exception: null,
+      existingAppointments: [],
+      now: new Date('2026-06-07T07:00:00'),
+    })
+    expect(result.available).toEqual([])
+    expect(result.booked).toEqual([])
+  })
+
+  it('excludes past slots from both arrays when today', () => {
+    const result = computeAllSlots({
+      date: '2026-06-07',
+      serviceDurationMin: 60,
+      weeklyAvailability: baseAvailability,
+      exception: null,
+      existingAppointments: [],
+      now: new Date('2026-06-07T10:45:00'),
+    })
+    expect(result.available).not.toContain('10:00')
+    expect(result.booked).not.toContain('10:00')
+    expect(result.available).toContain('11:00')
   })
 })

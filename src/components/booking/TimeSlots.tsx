@@ -1,31 +1,43 @@
 interface Props {
-  slots: string[]
+  available: string[]
+  booked: string[]
   selected: string | null
   loading: boolean
   onSelect: (time: string) => void
 }
 
-export default function TimeSlots({ slots, selected, loading, onSelect }: Props) {
+export default function TimeSlots({ available, booked, selected, loading, onSelect }: Props) {
   if (loading) {
     return <p className="text-sm text-mid-grey text-center py-4">טוען שעות...</p>
   }
-  if (slots.length === 0) {
+  if (available.length === 0 && booked.length === 0) {
     return <p className="text-sm text-gray-400 text-center py-4">אין תורים פנויים ביום זה</p>
   }
+
+  // Merge and sort all slots for display
+  const allTimes = Array.from(new Set([...available, ...booked])).sort()
+  const bookedSet = new Set(booked)
+
   return (
     <div className="grid grid-cols-3 gap-2">
-      {slots.map(time => (
-        <button
-          key={time}
-          onClick={() => onSelect(time)}
-          className={`rounded-lg border-2 py-2 text-sm font-medium transition-all
-            ${selected === time
-              ? 'bg-dark border-dark text-white'
-              : 'border-light-grey bg-white hover:border-dark/50 text-charcoal'}`}
-        >
-          {time}
-        </button>
-      ))}
+      {allTimes.map(time => {
+        const isTaken = bookedSet.has(time)
+        return (
+          <button
+            key={time}
+            onClick={() => !isTaken && onSelect(time)}
+            disabled={isTaken}
+            className={`rounded-lg border-2 py-2 text-sm font-medium transition-all
+              ${isTaken
+                ? 'border-light-grey bg-off-white text-gray-300 cursor-not-allowed opacity-50'
+                : selected === time
+                  ? 'bg-dark border-dark text-warm-white'
+                  : 'border-light-grey bg-white hover:border-dark/50 text-charcoal'}`}
+          >
+            {time}
+          </button>
+        )
+      })}
     </div>
   )
 }

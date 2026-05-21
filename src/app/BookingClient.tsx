@@ -76,7 +76,8 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
               שעות פנויות
             </h2>
             <TimeSlots
-              slots={booking.slots}
+              available={booking.availableSlots}
+              booked={booking.bookedSlots}
               selected={booking.selectedTime}
               loading={booking.slotsLoading}
               onSelect={booking.setSelectedTime}
