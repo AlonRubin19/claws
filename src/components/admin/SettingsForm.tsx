@@ -23,7 +23,7 @@ export default function SettingsForm({ settings }: Props) {
     setLoading(true)
     setMessage(null)
     const supabase = createClient()
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('salon_settings')
       .update({ address, phone, instagram, description, updated_at: new Date().toISOString() })
       .eq('id', SETTINGS_ID)
