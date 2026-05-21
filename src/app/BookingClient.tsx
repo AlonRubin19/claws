@@ -7,7 +7,7 @@ import DateStrip from '@/components/booking/DateStrip'
 import TimeSlots from '@/components/booking/TimeSlots'
 import CustomerForm from '@/components/booking/CustomerForm'
 import { useBooking } from '@/hooks/useBooking'
-import type { Service } from '@/lib/types'
+import type { Service, SalonSettings } from '@/lib/types'
 
 interface WeeklyRow { day_of_week: number; is_open: boolean }
 interface ExceptionRow { date: string; is_open: boolean }
@@ -16,9 +16,10 @@ interface Props {
   services: Service[]
   weeklyAvailability: WeeklyRow[]
   exceptions: ExceptionRow[]
+  settings: SalonSettings
 }
 
-export default function BookingClient({ services, weeklyAvailability, exceptions }: Props) {
+export default function BookingClient({ services, weeklyAvailability, exceptions, settings }: Props) {
   const booking = useBooking(services)
 
   const closedDates = useMemo(() => {
@@ -43,8 +44,11 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
   return (
     <div className="min-h-screen bg-warm-white">
       <header className="bg-charcoal px-6 py-8 text-center shadow-sm">
-        <h1 className="text-3xl font-serif font-bold tracking-widest text-white">✦ CLAWS ✦</h1>
-        <p className="mt-1 text-sm text-white/80 tracking-wider">סטודיו לציפורניים · קביעת תור</p>
+        <h1 className="text-3xl font-serif font-bold tracking-widest text-warm-white">✦ CLAWS ✦</h1>
+        <p className="mt-1 text-sm text-warm-white/70 tracking-wider">סטודיו לציפורניים · קביעת תור</p>
+        {settings.description && (
+          <p className="mt-3 text-sm text-warm-white/60 max-w-sm mx-auto leading-relaxed">{settings.description}</p>
+        )}
       </header>
 
       <main className="mx-auto max-w-lg px-4 py-6 space-y-6">
@@ -102,6 +106,16 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
           </section>
         )}
       </main>
+
+      {(settings.address || settings.phone || settings.instagram) && (
+        <footer className="bg-dark text-warm-white/60 text-xs text-center py-4 px-6 space-y-1">
+          {settings.address && <p>📍 {settings.address}</p>}
+          <div className="flex justify-center gap-4">
+            {settings.phone && <span dir="ltr">📞 {settings.phone}</span>}
+            {settings.instagram && <span>📸 {settings.instagram}</span>}
+          </div>
+        </footer>
+      )}
     </div>
   )
 }

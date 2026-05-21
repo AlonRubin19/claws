@@ -50,3 +50,12 @@ export interface AppointmentSlot {
   end_time: string
   status: AppointmentStatus
 }
+
+export interface SalonSettings {
+  id: string
+  address: string
+  phone: string
+  instagram: string
+  description: string
+  updated_at: string
+}
