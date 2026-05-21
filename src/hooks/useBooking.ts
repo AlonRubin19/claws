@@ -70,15 +70,25 @@ export function useBooking(services: Service[]) {
       let inspirationImageUrl: string | undefined
 
       if (inspirationFile) {
-        const ext = inspirationFile.name.split('.').pop()
-        const path = `${crypto.randomUUID()}.${ext}`
-        const supabase = createClient()
-        const { data: upload, error: uploadError } = await supabase.storage
-          .from('inspiration-images')
-          .upload(path, inspirationFile, { contentType: inspirationFile.type })
-        if (!uploadError && upload) {
-          const { data: urlData } = supabase.storage.from('inspiration-images').getPublicUrl(upload.path)
-          inspirationImageUrl = urlData.publicUrl
+        const ALLOWED: Record<string, string> = {
+          'image/jpeg': 'jpg',
+          'image/png': 'png',
+          'image/webp': 'webp',
+        }
+        const safeExt = ALLOWED[inspirationFile.type]
+        const MAX_BYTES = 5 * 1024 * 1024 // 5 MB
+        if (safeExt && inspirationFile.size <= MAX_BYTES) {
+          const path = `${crypto.randomUUID()}.${safeExt}`
+          const supabase = createClient()
+          const { data: upload, error: uploadError } = await supabase.storage
+            .from('inspiration-images')
+            .upload(path, inspirationFile, { contentType: inspirationFile.type })
+          if (uploadError) {
+            console.warn('[inspiration upload]', uploadError.message)
+          } else if (upload) {
+            const { data: urlData } = supabase.storage.from('inspiration-images').getPublicUrl(upload.path)
+            inspirationImageUrl = urlData.publicUrl
+          }
         }
       }
 

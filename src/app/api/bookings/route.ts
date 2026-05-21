@@ -10,6 +10,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'שדות חובה חסרים' }, { status: 400 })
   }
 
+  // Validate that any supplied image URL actually comes from our Storage bucket
+  if (inspirationImageUrl) {
+    const storageBase = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/inspiration-images/`
+    if (typeof inspirationImageUrl !== 'string' || !inspirationImageUrl.startsWith(storageBase)) {
+      return NextResponse.json({ error: 'כתובת תמונה לא חוקית' }, { status: 400 })
+    }
+  }
+
   const supabase = await createClient()
 
   const { data: service, error: svcError } = await supabase
