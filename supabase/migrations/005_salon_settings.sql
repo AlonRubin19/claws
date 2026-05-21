@@ -21,11 +21,5 @@ grant select on salon_settings to anon;
 grant select, insert, update, delete on salon_settings to authenticated;
 
 -- Seed the single settings row with the fixed ID
-insert into salon_settings (id, address, phone, instagram, description)
-values (
-  '00000000-0000-0000-0000-000000000001',
-  '',
-  '',
-  '',
-  ''
-);
+insert into salon_settings (id)
+values ('00000000-0000-0000-0000-000000000001');
