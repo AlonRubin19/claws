@@ -42,7 +42,7 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
 
   return (
     <div className="min-h-screen bg-warm-white">
-      <header className="bg-gradient-to-l from-charcoal to-dark px-6 py-8 text-center shadow-sm">
+      <header className="bg-charcoal px-6 py-8 text-center shadow-sm">
         <h1 className="text-3xl font-serif font-bold tracking-widest text-white">✦ CLAWS ✦</h1>
         <p className="mt-1 text-sm text-white/80 tracking-wider">סטודיו לציפורניים · קביעת תור</p>
       </header>

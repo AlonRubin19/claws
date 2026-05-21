@@ -43,7 +43,7 @@ export default function ServicesPage() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-bold text-charcoal">שירותים</h1>
         <button onClick={openAdd}
-          className="bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-4 py-2 text-sm font-semibold shadow-lg shadow-charcoal/20">
+          className="bg-charcoal text-white rounded-xl px-4 py-2 text-sm font-semibold shadow-lg shadow-charcoal/20">
           + שירות חדש
         </button>
       </div>

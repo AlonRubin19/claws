@@ -63,7 +63,7 @@ export default function ServiceModal({ open, onClose, onSave, initial }: Props) 
           <span className="text-sm text-charcoal">פעיל (מוצג ללקוחות)</span>
         </label>
         <button onClick={handleSave} disabled={loading}
-          className="w-full bg-gradient-to-l from-dark to-charcoal text-white rounded-xl py-3 font-semibold disabled:opacity-50">
+          className="w-full bg-charcoal text-white rounded-xl py-3 font-semibold disabled:opacity-50">
           {loading ? 'שומרת...' : 'שמירה'}
         </button>
       </div>

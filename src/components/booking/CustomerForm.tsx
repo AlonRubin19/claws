@@ -38,7 +38,7 @@ export default function CustomerForm({ name, phone, onNameChange, onPhoneChange,
       <button
         onClick={onSubmit}
         disabled={loading}
-        className="w-full rounded-2xl bg-gradient-to-l from-dark to-charcoal py-4 text-white font-semibold tracking-wide shadow-lg shadow-charcoal/20 disabled:opacity-50 transition-opacity"
+        className="w-full rounded-2xl bg-charcoal py-4 text-white font-semibold tracking-wide shadow-lg shadow-charcoal/20 disabled:opacity-50 transition-opacity"
       >
         {loading ? 'שולחת...' : '✦ אישור תור'}
       </button>

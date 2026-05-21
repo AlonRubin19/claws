@@ -97,7 +97,7 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
           ))}
         </div>
         <button onClick={saveWeekly} disabled={savingWeekly}
-          className="mt-4 bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-6 py-2.5 text-sm font-semibold shadow-lg shadow-charcoal/20 disabled:opacity-50">
+          className="mt-4 bg-charcoal text-white rounded-xl px-6 py-2.5 text-sm font-semibold shadow-lg shadow-charcoal/20 disabled:opacity-50">
           {savingWeekly ? 'שומרת...' : 'שמירת לוח שבועי'}
         </button>
       </section>
@@ -132,7 +132,7 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
             </div>
           )}
           <button onClick={addException}
-            className="bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-5 py-2 text-sm font-semibold">
+            className="bg-charcoal text-white rounded-xl px-5 py-2 text-sm font-semibold">
             + הוסף חריגה
           </button>
         </div>

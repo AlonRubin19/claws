@@ -15,7 +15,7 @@ export default function ServiceGrid({ services, selected, onSelect }: Props) {
           onClick={() => onSelect(s.id)}
           className={`rounded-xl border-2 p-3 text-right transition-all
             ${selected === s.id
-              ? 'border-dark bg-off-white'
+              ? 'border-dark bg-light-grey'
               : 'border-light-grey bg-white hover:border-dark/50'}`}
         >
           <p className="font-semibold text-sm text-charcoal">{s.name}</p>

@@ -31,8 +31,8 @@
 }
 
 body {
-  background-color: #f5f0eb;
-  color: #1a1a1a;
+  background-color: var(--color-warm-white);
+  color: var(--color-charcoal);
 }
 
 @layer base {
@@ -44,19 +44,19 @@ body {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #555555;
+    color: var(--color-mid-grey);
     margin-bottom: 0.25rem;
   }
   .input-style {
     width: 100%;
     border-radius: 0.75rem;
-    border: 2px solid #e8e4df;
+    border: 2px solid var(--color-light-grey);
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
-    color: #1a1a1a;
+    color: var(--color-charcoal);
     outline: none;
   }
   .input-style:focus {
-    border-color: #2d2d2d;
+    border-color: var(--color-dark);
   }
 }
