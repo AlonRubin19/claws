@@ -99,6 +99,7 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
               phone={booking.phone}
               onNameChange={booking.setName}
               onPhoneChange={booking.setPhone}
+              onFileChange={booking.onFileChange}
               onSubmit={booking.handleSubmit}
               loading={booking.submitLoading}
               error={booking.error}

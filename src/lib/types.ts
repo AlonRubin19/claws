@@ -37,6 +37,7 @@ export interface Appointment {
   end_time: string
   status: AppointmentStatus
   created_at: string
+  inspiration_image_url?: string | null
   service?: Service
 }
 

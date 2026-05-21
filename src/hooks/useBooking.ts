@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import type { Service } from '@/lib/types'
+import { createClient } from '@/lib/supabase/client'
 
 export function useBooking(services: Service[]) {
   const router = useRouter()
@@ -17,6 +18,7 @@ export function useBooking(services: Service[]) {
   const [phone, setPhone] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [inspirationFile, setInspirationFile] = useState<File | null>(null)
 
   const fetchSlots = useCallback(async (date: Date, serviceId: string) => {
     setSlotsLoading(true)
@@ -65,6 +67,21 @@ export function useBooking(services: Service[]) {
     setSubmitLoading(true)
     setError(null)
     try {
+      let inspirationImageUrl: string | undefined
+
+      if (inspirationFile) {
+        const ext = inspirationFile.name.split('.').pop()
+        const path = `${crypto.randomUUID()}.${ext}`
+        const supabase = createClient()
+        const { data: upload, error: uploadError } = await supabase.storage
+          .from('inspiration-images')
+          .upload(path, inspirationFile, { contentType: inspirationFile.type })
+        if (!uploadError && upload) {
+          const { data: urlData } = supabase.storage.from('inspiration-images').getPublicUrl(upload.path)
+          inspirationImageUrl = urlData.publicUrl
+        }
+      }
+
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,6 +91,7 @@ export function useBooking(services: Service[]) {
           startTime: selectedTime,
           customerName: name,
           customerPhone: phone,
+          ...(inspirationImageUrl ? { inspirationImageUrl } : {}),
         }),
       })
       const data = await res.json()
@@ -91,7 +109,7 @@ export function useBooking(services: Service[]) {
     } finally {
       setSubmitLoading(false)
     }
-  }, [selectedServiceId, selectedDate, selectedTime, name, phone, router, fetchSlots])
+  }, [selectedServiceId, selectedDate, selectedTime, name, phone, inspirationFile, router, fetchSlots])
 
   return {
     selectedServiceId, handleServiceSelect,
@@ -99,5 +117,6 @@ export function useBooking(services: Service[]) {
     availableSlots, bookedSlots, slotsLoading, selectedTime, setSelectedTime,
     name, setName, phone, setPhone,
     submitLoading, error, handleSubmit,
+    onFileChange: setInspirationFile,
   }
 }

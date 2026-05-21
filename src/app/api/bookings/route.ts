@@ -4,7 +4,7 @@ import { computeAvailableSlots } from '@/lib/slots'
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { serviceId, date, startTime, customerName, customerPhone } = body
+  const { serviceId, date, startTime, customerName, customerPhone, inspirationImageUrl } = body
 
   if (!serviceId || !date || !startTime || !customerName || !customerPhone) {
     return NextResponse.json({ error: 'שדות חובה חסרים' }, { status: 400 })
@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
       date,
       start_time: startTime,
       end_time: endTime,
+      ...(inspirationImageUrl ? { inspiration_image_url: inspirationImageUrl } : {}),
     })
     .select('token')
     .single()

@@ -3,12 +3,13 @@ interface Props {
   phone: string
   onNameChange: (v: string) => void
   onPhoneChange: (v: string) => void
+  onFileChange: (file: File | null) => void
   onSubmit: () => void
   loading: boolean
   error: string | null
 }
 
-export default function CustomerForm({ name, phone, onNameChange, onPhoneChange, onSubmit, loading, error }: Props) {
+export default function CustomerForm({ name, phone, onNameChange, onPhoneChange, onFileChange, onSubmit, loading, error }: Props) {
   return (
     <div className="space-y-4">
       <div>
@@ -30,6 +31,15 @@ export default function CustomerForm({ name, phone, onNameChange, onPhoneChange,
           placeholder="050-123-4567"
           className="input-style"
           dir="ltr"
+        />
+      </div>
+      <div>
+        <label className="label-style">השראה לציפורניים (אופציונלי)</label>
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={e => onFileChange(e.target.files?.[0] ?? null)}
+          className="w-full text-sm text-mid-grey file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-off-white file:text-charcoal hover:file:bg-light-grey cursor-pointer"
         />
       </div>
       {error && (
