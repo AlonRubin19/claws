@@ -40,7 +40,6 @@ export async function GET(req: NextRequest) {
     .from('appointments')
     .select('start_time, end_time, status')
     .eq('date', date)
-    .neq('status', 'cancelled')
 
   const { available, booked } = computeAllSlots({
     date,
