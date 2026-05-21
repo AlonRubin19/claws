@@ -9,13 +9,17 @@ export default async function BookingPage() {
     { data: services },
     { data: weekly },
     { data: exceptions },
-    { data: settings },
+    { data: settings, error: settingsError },
   ] = await Promise.all([
     supabase.from('services').select('*').eq('is_active', true).order('price'),
     supabase.from('weekly_availability').select('day_of_week, is_open'),
     supabase.from('availability_exceptions').select('date, is_open'),
     supabase.from('salon_settings').select('*').eq('id', SETTINGS_ID).single(),
   ])
+
+  if (settingsError && settingsError.code !== 'PGRST116') {
+    console.error('Failed to fetch salon_settings:', settingsError.message)
+  }
 
   return (
     <BookingClient

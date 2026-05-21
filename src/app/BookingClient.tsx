@@ -110,10 +110,12 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
       {(settings.address || settings.phone || settings.instagram) && (
         <footer className="bg-dark text-warm-white/60 text-xs text-center py-4 px-6 space-y-1">
           {settings.address && <p>📍 {settings.address}</p>}
-          <div className="flex justify-center gap-4">
-            {settings.phone && <span dir="ltr">📞 {settings.phone}</span>}
-            {settings.instagram && <span>📸 {settings.instagram}</span>}
-          </div>
+          {(settings.phone || settings.instagram) && (
+            <div className="flex justify-center gap-4">
+              {settings.phone && <span dir="ltr">📞 {settings.phone}</span>}
+              {settings.instagram && <span>📸 {settings.instagram}</span>}
+            </div>
+          )}
         </footer>
       )}
     </div>

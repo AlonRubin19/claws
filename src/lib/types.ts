@@ -57,5 +57,5 @@ export interface SalonSettings {
   phone: string
   instagram: string
   description: string
-  updated_at: string
+  updated_at?: string
 }
