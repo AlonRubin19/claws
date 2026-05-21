@@ -152,7 +152,7 @@ Features:
 
 ### Component: `src/components/admin/AppointmentPopover.tsx`
 
-Inline popover rendered inside the calendar page. Shows:
+Modal overlay (fixed position, centered, backdrop) rendered inside the calendar page. Shows:
 - Customer name, service, date+time, phone
 - Inspiration image thumbnail (if `inspiration_image_url` is set) — clicking opens full image in new tab
 - Status badge
@@ -181,13 +181,16 @@ Client component. Fields (all Hebrew labels):
 - **אינסטגרם** — instagram handle (text input, `dir="ltr"`, placeholder `@claws.nails`)
 - **תיאור הסלון** — description (textarea, ~4 rows)
 
-On save: upsert the single `salon_settings` row. Hebrew success/error feedback inline (no alert()).
+On save: the migration seeds one row with a fixed `id` (UUID constant defined in the migration). `SettingsForm` updates that row by `id` (`update().eq('id', SETTINGS_ID)`). The constant is exported from a shared `src/lib/constants.ts` file so both the migration seed and the form use the same value. Hebrew success/error feedback inline (no alert()).
+
+Image upload orphans (upload succeeds, booking POST fails) are acceptable — the storage overhead is negligible and no cleanup is needed.
 
 ---
 
 ## 7. File Map
 
 ### New files
+- `src/lib/constants.ts` — `SETTINGS_ID` UUID constant
 - `src/app/admin/(protected)/calendar/page.tsx`
 - `src/app/admin/(protected)/settings/page.tsx`
 - `src/components/admin/AppointmentsCalendar.tsx`
@@ -207,7 +210,7 @@ On save: upsert the single `salon_settings` row. Hebrew success/error feedback i
 - `src/components/booking/TimeSlots.tsx` — render booked slots grey
 - `src/components/booking/CustomerForm.tsx` — add image upload input
 - `src/components/admin/Sidebar.tsx` — add Calendar + Settings nav items
-- Every component using old color token names
+- Every component using old color token names (search codebase for `espresso`, `rose`, `terracotta`, `cream`, `blush`, `sand` — approximately 12–15 files)
 
 ---
 
