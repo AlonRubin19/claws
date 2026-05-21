@@ -14,10 +14,13 @@ interface Props {
 export default function AppointmentPopover({ appointment: initial, onClose }: Props) {
   const router = useRouter()
   const [appointment, setAppointment] = useState(initial)
-  const [loading, setLoading] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [confirmCancel, setConfirmCancel] = useState(false)
 
   async function updateStatus(status: AppointmentStatus) {
-    setLoading(status)
+    if (loading) return
+    setLoading(true)
+    setConfirmCancel(false)
     const supabase = createClient()
     const { error } = await supabase
       .from('appointments')
@@ -29,7 +32,7 @@ export default function AppointmentPopover({ appointment: initial, onClose }: Pr
       setAppointment(prev => ({ ...prev, status }))
       router.refresh()
     }
-    setLoading(null)
+    setLoading(false)
   }
 
   const dateLabel = new Date(`${appointment.date}T${appointment.start_time}`)
@@ -81,29 +84,39 @@ export default function AppointmentPopover({ appointment: initial, onClose }: Pr
           {appointment.status === 'pending' && (
             <button
               onClick={() => updateStatus('confirmed')}
-              disabled={loading === 'confirmed'}
+              disabled={loading}
               className="flex-1 py-2 rounded-xl bg-charcoal text-warm-white text-sm font-semibold disabled:opacity-50"
             >
-              {loading === 'confirmed' ? '...' : '✓ אישור'}
+              {loading ? '...' : '✓ אישור'}
             </button>
           )}
           {appointment.status === 'confirmed' && (
             <button
               onClick={() => updateStatus('completed')}
-              disabled={loading === 'completed'}
+              disabled={loading}
               className="flex-1 py-2 rounded-xl bg-charcoal text-warm-white text-sm font-semibold disabled:opacity-50"
             >
-              {loading === 'completed' ? '...' : '✓✓ הושלם'}
+              {loading ? '...' : '✓✓ הושלם'}
             </button>
           )}
           {appointment.status !== 'cancelled' && appointment.status !== 'completed' && (
-            <button
-              onClick={() => { if (confirm('לבטל את התור?')) updateStatus('cancelled') }}
-              disabled={loading === 'cancelled'}
-              className="flex-1 py-2 rounded-xl bg-off-white text-mid-grey text-sm font-semibold disabled:opacity-50"
-            >
-              {loading === 'cancelled' ? '...' : '✕ ביטול'}
-            </button>
+            confirmCancel ? (
+              <button
+                onClick={() => updateStatus('cancelled')}
+                disabled={loading}
+                className="flex-1 py-2 rounded-xl bg-red-100 text-red-700 text-sm font-semibold disabled:opacity-50"
+              >
+                {loading ? '...' : 'בטוחה? לחצי לאישור'}
+              </button>
+            ) : (
+              <button
+                onClick={() => setConfirmCancel(true)}
+                disabled={loading}
+                className="flex-1 py-2 rounded-xl bg-off-white text-mid-grey text-sm font-semibold disabled:opacity-50"
+              >
+                ✕ ביטול
+              </button>
+            )
           )}
         </div>
       </div>
