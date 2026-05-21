@@ -27,7 +27,8 @@ export default function SettingsForm({ settings }: Props) {
       .from('salon_settings')
       .update({ address, phone, instagram, description, updated_at: new Date().toISOString() })
       .eq('id', SETTINGS_ID)
-    if (error) {
+      .select('id')
+    if (error || !data || data.length === 0) {
       setMessage({ type: 'error', text: 'שגיאה בשמירת ההגדרות. נסי שוב.' })
     } else {
       setMessage({ type: 'success', text: 'ההגדרות נשמרו בהצלחה ✓' })
