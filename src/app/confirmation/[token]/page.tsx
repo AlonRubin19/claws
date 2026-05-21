@@ -16,10 +16,10 @@ export default async function ConfirmationPage({ params }: Props) {
 
   if (!appointment) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center p-6">
+      <div className="min-h-screen bg-warm-white flex items-center justify-center p-6">
         <div className="text-center">
           <p className="text-4xl mb-4">✦</p>
-          <h1 className="text-xl font-semibold text-espresso mb-2">הקישור אינו תקין</h1>
+          <h1 className="text-xl font-semibold text-charcoal mb-2">הקישור אינו תקין</h1>
           <p className="text-sm text-gray-400">הקישור אינו תקין או שהתור לא נמצא</p>
         </div>
       </div>
@@ -37,15 +37,15 @@ export default async function ConfirmationPage({ params }: Props) {
   )
 
   return (
-    <div className="min-h-screen bg-cream flex items-center justify-center p-6">
+    <div className="min-h-screen bg-warm-white flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
           <p className="text-5xl mb-3">💅</p>
-          <h1 className="text-2xl font-serif font-bold text-espresso">התור אושר!</h1>
+          <h1 className="text-2xl font-serif font-bold text-charcoal">התור אושר!</h1>
           <p className="text-sm text-gray-400 mt-1">פרטי התור שלך</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4 border border-sand">
+        <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4 border border-light-grey">
           <Row label="שירות" value={appointment.service?.name ?? ''} />
           <Row label="תאריך" value={dateFormatted} />
           <Row label="שעה" value={appointment.start_time} />
@@ -64,7 +64,7 @@ export default async function ConfirmationPage({ params }: Props) {
 
         <a
           href="/"
-          className="mt-3 block text-center text-sm text-terracotta hover:underline"
+          className="mt-3 block text-center text-sm text-mid-grey hover:underline"
         >
           קביעת תור נוסף ←
         </a>
@@ -77,7 +77,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between items-center text-sm">
       <span className="text-gray-400">{label}</span>
-      <span className="font-medium text-espresso">{value}</span>
+      <span className="font-medium text-charcoal">{value}</span>
     </div>
   )
 }

@@ -41,15 +41,15 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
   }, [weeklyAvailability, exceptions])
 
   return (
-    <div className="min-h-screen bg-cream">
-      <header className="bg-gradient-to-l from-blush to-rose px-6 py-8 text-center shadow-sm">
+    <div className="min-h-screen bg-warm-white">
+      <header className="bg-gradient-to-l from-charcoal to-dark px-6 py-8 text-center shadow-sm">
         <h1 className="text-3xl font-serif font-bold tracking-widest text-white">✦ CLAWS ✦</h1>
         <p className="mt-1 text-sm text-white/80 tracking-wider">סטודיו לציפורניים · קביעת תור</p>
       </header>
 
       <main className="mx-auto max-w-lg px-4 py-6 space-y-6">
         <section>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-mid-grey">
             בחרי שירות
           </h2>
           <ServiceGrid
@@ -60,7 +60,7 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
         </section>
 
         <section>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-mid-grey">
             בחרי תאריך
           </h2>
           <DateStrip
@@ -72,7 +72,7 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
 
         {booking.selectedServiceId && booking.selectedDate && (
           <section>
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-terracotta">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-mid-grey">
               שעות פנויות
             </h2>
             <TimeSlots
@@ -86,7 +86,7 @@ export default function BookingClient({ services, weeklyAvailability, exceptions
 
         {booking.selectedTime && (
           <section>
-            <div className="mb-4 rounded-xl bg-rose/10 px-4 py-3 text-sm text-espresso">
+            <div className="mb-4 rounded-xl bg-off-white px-4 py-3 text-sm text-charcoal">
               תור ב{booking.selectedDate && format(booking.selectedDate, 'd/M/yyyy')} בשעה {booking.selectedTime}
             </div>
             <CustomerForm

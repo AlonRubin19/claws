@@ -21,7 +21,7 @@ export default function AvailabilityPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-espresso mb-6">זמינות</h1>
+      <h1 className="text-xl font-bold text-charcoal mb-6">זמינות</h1>
       {weekly.length > 0 && (
         <AvailabilityForm weekly={weekly} exceptions={exceptions} onRefresh={load} />
       )}

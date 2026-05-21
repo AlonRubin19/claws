@@ -23,8 +23,8 @@ export default async function AdminDashboard() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold text-espresso">תורים</h1>
-        <span className="text-xs text-gray-400 bg-white rounded-full px-3 py-1 border border-sand">
+        <h1 className="text-xl font-bold text-charcoal">תורים</h1>
+        <span className="text-xs text-gray-400 bg-white rounded-full px-3 py-1 border border-light-grey">
           {new Date().toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' })}
         </span>
       </div>

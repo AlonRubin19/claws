@@ -7,7 +7,7 @@ interface Props {
 
 export default function TimeSlots({ slots, selected, loading, onSelect }: Props) {
   if (loading) {
-    return <p className="text-sm text-terracotta text-center py-4">טוען שעות...</p>
+    return <p className="text-sm text-mid-grey text-center py-4">טוען שעות...</p>
   }
   if (slots.length === 0) {
     return <p className="text-sm text-gray-400 text-center py-4">אין תורים פנויים ביום זה</p>
@@ -20,8 +20,8 @@ export default function TimeSlots({ slots, selected, loading, onSelect }: Props)
           onClick={() => onSelect(time)}
           className={`rounded-lg border-2 py-2 text-sm font-medium transition-all
             ${selected === time
-              ? 'bg-rose border-rose text-white'
-              : 'border-sand bg-white hover:border-rose/50 text-espresso'}`}
+              ? 'bg-dark border-dark text-white'
+              : 'border-light-grey bg-white hover:border-dark/50 text-charcoal'}`}
         >
           {time}
         </button>

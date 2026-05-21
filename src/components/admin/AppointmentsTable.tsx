@@ -47,17 +47,17 @@ export default function AppointmentsTable({ appointments }: Props) {
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={`text-xs px-4 py-1.5 rounded-full border-2 transition-colors
-              ${filter === f.key ? 'bg-rose border-rose text-white' : 'border-sand text-gray-500 hover:border-rose/50'}`}
+              ${filter === f.key ? 'bg-dark border-dark text-white' : 'border-light-grey text-gray-500 hover:border-dark/50'}`}
           >
             {f.label}
           </button>
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-sand overflow-hidden">
+      <div className="bg-white rounded-2xl border border-light-grey overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-sand">
+            <tr className="border-b border-light-grey">
               {['לקוחה','שירות','תאריך ושעה','טלפון','סטטוס','פעולות'].map(h => (
                 <th key={h} className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
                   {h}
@@ -72,7 +72,7 @@ export default function AppointmentsTable({ appointments }: Props) {
               </tr>
             )}
             {filtered.map(a => (
-              <tr key={a.id} className="border-b border-sand/50 hover:bg-cream transition-colors">
+              <tr key={a.id} className="border-b border-light-grey/50 hover:bg-warm-white transition-colors">
                 <td className="px-4 py-3 font-medium">{a.customer_name}</td>
                 <td className="px-4 py-3 text-gray-500">{a.service?.name ?? '—'}</td>
                 <td className="px-4 py-3 text-gray-500 tabular-nums" dir="ltr">{a.date} {a.start_time}</td>

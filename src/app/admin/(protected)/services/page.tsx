@@ -41,19 +41,19 @@ export default function ServicesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold text-espresso">שירותים</h1>
+        <h1 className="text-xl font-bold text-charcoal">שירותים</h1>
         <button onClick={openAdd}
-          className="bg-gradient-to-l from-terracotta to-rose text-white rounded-xl px-4 py-2 text-sm font-semibold shadow-lg shadow-rose/30">
+          className="bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-4 py-2 text-sm font-semibold shadow-lg shadow-charcoal/20">
           + שירות חדש
         </button>
       </div>
 
       <div className="space-y-3">
         {services.map(s => (
-          <div key={s.id} className="bg-white rounded-xl border border-sand p-4 flex items-center justify-between">
+          <div key={s.id} className="bg-white rounded-xl border border-light-grey p-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div>
-                <p className="font-semibold text-espresso">{s.name}</p>
+                <p className="font-semibold text-charcoal">{s.name}</p>
                 <p className="text-xs text-gray-400 mt-0.5">₪{s.price} · {s.duration_min} דקות</p>
               </div>
               {!s.is_active && (
@@ -62,7 +62,7 @@ export default function ServicesPage() {
             </div>
             <div className="flex gap-2">
               <button onClick={() => openEdit(s)}
-                className="text-terracotta text-xs hover:bg-sand rounded-lg px-3 py-1.5 transition-colors">
+                className="text-mid-grey text-xs hover:bg-light-grey rounded-lg px-3 py-1.5 transition-colors">
                 עריכה
               </button>
               {s.is_active && (

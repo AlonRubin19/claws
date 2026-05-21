@@ -13,12 +13,12 @@
 }
 
 @theme {
-  --color-cream: #fdf6f0;
-  --color-blush: #f7c5b8;
-  --color-rose: #e8a89a;
-  --color-terracotta: #c9866f;
-  --color-espresso: #4a3728;
-  --color-sand: #f5ede8;
+  --color-charcoal: #1a1a1a;
+  --color-dark: #2d2d2d;
+  --color-mid-grey: #555555;
+  --color-warm-white: #f5f0eb;
+  --color-light-grey: #e8e4df;
+  --color-off-white: #f0ece8;
   --font-serif: Georgia, serif;
   --font-sans: system-ui, sans-serif;
 }
@@ -31,8 +31,8 @@
 }
 
 body {
-  background-color: #fdf6f0;
-  color: #4a3728;
+  background-color: #f5f0eb;
+  color: #1a1a1a;
 }
 
 @layer base {
@@ -44,19 +44,19 @@ body {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #c9866f;
+    color: #555555;
     margin-bottom: 0.25rem;
   }
   .input-style {
     width: 100%;
     border-radius: 0.75rem;
-    border: 2px solid #f5ede8;
+    border: 2px solid #e8e4df;
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
-    color: #4a3728;
+    color: #1a1a1a;
     outline: none;
   }
   .input-style:focus {
-    border-color: #e8a89a;
+    border-color: #2d2d2d;
   }
 }

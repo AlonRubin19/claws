@@ -27,10 +27,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-sand flex items-center justify-center p-6">
+    <div className="min-h-screen bg-light-grey flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-serif font-bold text-espresso tracking-widest">✦ CLAWS</h1>
+          <h1 className="text-2xl font-serif font-bold text-charcoal tracking-widest">✦ CLAWS</h1>
           <p className="text-sm text-gray-400 mt-1">כניסה לפאנל הניהול</p>
         </div>
 
@@ -61,7 +61,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-2xl bg-gradient-to-l from-terracotta to-rose py-3 text-white font-semibold shadow-lg disabled:opacity-50"
+            className="w-full rounded-2xl bg-gradient-to-l from-dark to-charcoal py-3 text-white font-semibold shadow-lg disabled:opacity-50"
           >
             {loading ? 'נכנסת...' : 'כניסה'}
           </button>

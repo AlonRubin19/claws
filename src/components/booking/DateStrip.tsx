@@ -27,9 +27,9 @@ export default function DateStrip({ closedDates, selected, onSelect }: Props) {
             disabled={isClosed}
             onClick={() => onSelect(day)}
             className={`flex-shrink-0 w-12 rounded-xl border-2 py-2 text-center transition-all
-              ${isSelected ? 'bg-rose border-rose text-white'
-                : isClosed ? 'border-sand bg-sand text-gray-300 cursor-not-allowed'
-                : 'border-sand bg-white hover:border-rose/50'}`}
+              ${isSelected ? 'bg-dark border-dark text-white'
+                : isClosed ? 'border-light-grey bg-light-grey text-gray-300 cursor-not-allowed'
+                : 'border-light-grey bg-white hover:border-dark/50'}`}
           >
             <p className="text-xs opacity-70">{DAY_LABELS[day.getDay()]}</p>
             <p className="text-base font-semibold leading-tight">{format(day, 'd')}</p>

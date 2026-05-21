@@ -68,17 +68,17 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="text-base font-semibold text-espresso mb-4">לוח שבועי</h2>
-        <div className="bg-white rounded-2xl border border-sand overflow-hidden">
+        <h2 className="text-base font-semibold text-charcoal mb-4">לוח שבועי</h2>
+        <div className="bg-white rounded-2xl border border-light-grey overflow-hidden">
           {weeklyState.map((day, i) => (
-            <div key={day.id} className="flex items-center gap-4 px-5 py-4 border-b border-sand/50 last:border-0">
-              <span className="w-16 text-sm font-medium text-espresso">{DAY_NAMES[day.day_of_week]}</span>
+            <div key={day.id} className="flex items-center gap-4 px-5 py-4 border-b border-light-grey/50 last:border-0">
+              <span className="w-16 text-sm font-medium text-charcoal">{DAY_NAMES[day.day_of_week]}</span>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={day.is_open}
                   onChange={e => updateDay(i, 'is_open', e.target.checked)}
-                  className="accent-rose w-4 h-4"
+                  className="accent-dark w-4 h-4"
                 />
                 <span className="text-xs text-gray-500">פתוח</span>
               </label>
@@ -86,25 +86,25 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
                 <div className="flex items-center gap-2 mr-auto">
                   <input type="time" value={day.open_time}
                     onChange={e => updateDay(i, 'open_time', e.target.value)}
-                    className="border-2 border-sand rounded-lg px-2 py-1 text-sm focus:border-rose focus:outline-none" />
+                    className="border-2 border-light-grey rounded-lg px-2 py-1 text-sm focus:border-dark focus:outline-none" />
                   <span className="text-gray-400 text-xs">עד</span>
                   <input type="time" value={day.close_time}
                     onChange={e => updateDay(i, 'close_time', e.target.value)}
-                    className="border-2 border-sand rounded-lg px-2 py-1 text-sm focus:border-rose focus:outline-none" />
+                    className="border-2 border-light-grey rounded-lg px-2 py-1 text-sm focus:border-dark focus:outline-none" />
                 </div>
               )}
             </div>
           ))}
         </div>
         <button onClick={saveWeekly} disabled={savingWeekly}
-          className="mt-4 bg-gradient-to-l from-terracotta to-rose text-white rounded-xl px-6 py-2.5 text-sm font-semibold shadow-lg shadow-rose/30 disabled:opacity-50">
+          className="mt-4 bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-6 py-2.5 text-sm font-semibold shadow-lg shadow-charcoal/20 disabled:opacity-50">
           {savingWeekly ? 'שומרת...' : 'שמירת לוח שבועי'}
         </button>
       </section>
 
       <section>
-        <h2 className="text-base font-semibold text-espresso mb-4">חריגות לפי תאריך</h2>
-        <div className="bg-white rounded-2xl border border-sand p-5 space-y-4">
+        <h2 className="text-base font-semibold text-charcoal mb-4">חריגות לפי תאריך</h2>
+        <div className="bg-white rounded-2xl border border-light-grey p-5 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="label-style">תאריך</label>
@@ -119,20 +119,20 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={newExIsOpen} onChange={e => setNewExIsOpen(e.target.checked)}
-              className="accent-rose w-4 h-4" />
-            <span className="text-sm text-espresso">פתוח באותו יום (שונה מהשגרה)</span>
+              className="accent-dark w-4 h-4" />
+            <span className="text-sm text-charcoal">פתוח באותו יום (שונה מהשגרה)</span>
           </label>
           {newExIsOpen && (
             <div className="flex items-center gap-3">
               <input type="time" value={newExOpenTime} onChange={e => setNewExOpenTime(e.target.value)}
-                className="border-2 border-sand rounded-lg px-2 py-1 text-sm focus:border-rose focus:outline-none" />
+                className="border-2 border-light-grey rounded-lg px-2 py-1 text-sm focus:border-dark focus:outline-none" />
               <span className="text-gray-400 text-xs">עד</span>
               <input type="time" value={newExCloseTime} onChange={e => setNewExCloseTime(e.target.value)}
-                className="border-2 border-sand rounded-lg px-2 py-1 text-sm focus:border-rose focus:outline-none" />
+                className="border-2 border-light-grey rounded-lg px-2 py-1 text-sm focus:border-dark focus:outline-none" />
             </div>
           )}
           <button onClick={addException}
-            className="bg-gradient-to-l from-terracotta to-rose text-white rounded-xl px-5 py-2 text-sm font-semibold">
+            className="bg-gradient-to-l from-dark to-charcoal text-white rounded-xl px-5 py-2 text-sm font-semibold">
             + הוסף חריגה
           </button>
         </div>
@@ -140,9 +140,9 @@ export default function AvailabilityForm({ weekly, exceptions, onRefresh }: Prop
         {exceptions.length > 0 && (
           <div className="mt-4 space-y-2">
             {exceptions.map(ex => (
-              <div key={ex.id} className="bg-white rounded-xl border border-sand px-4 py-3 flex items-center justify-between">
+              <div key={ex.id} className="bg-white rounded-xl border border-light-grey px-4 py-3 flex items-center justify-between">
                 <div>
-                  <span className="text-sm font-medium text-espresso" dir="ltr">{ex.date}</span>
+                  <span className="text-sm font-medium text-charcoal" dir="ltr">{ex.date}</span>
                   {ex.note && <span className="text-xs text-gray-400 mr-2">{ex.note}</span>}
                   <span className={`text-xs mr-2 ${ex.is_open ? 'text-green-600' : 'text-red-400'}`}>
                     {ex.is_open ? `פתוח ${ex.open_time}–${ex.close_time}` : 'סגור'}

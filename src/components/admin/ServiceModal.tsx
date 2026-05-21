@@ -59,11 +59,11 @@ export default function ServiceModal({ open, onClose, onSave, initial }: Props) 
         </div>
         <label className="flex items-center gap-3 cursor-pointer">
           <input type="checkbox" checked={isActive} onChange={e => setIsActive(e.target.checked)}
-            className="accent-rose w-4 h-4" />
-          <span className="text-sm text-espresso">פעיל (מוצג ללקוחות)</span>
+            className="accent-dark w-4 h-4" />
+          <span className="text-sm text-charcoal">פעיל (מוצג ללקוחות)</span>
         </label>
         <button onClick={handleSave} disabled={loading}
-          className="w-full bg-gradient-to-l from-terracotta to-rose text-white rounded-xl py-3 font-semibold disabled:opacity-50">
+          className="w-full bg-gradient-to-l from-dark to-charcoal text-white rounded-xl py-3 font-semibold disabled:opacity-50">
           {loading ? 'שומרת...' : 'שמירה'}
         </button>
       </div>

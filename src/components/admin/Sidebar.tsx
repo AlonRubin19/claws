@@ -22,9 +22,9 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-52 flex-shrink-0 bg-espresso flex flex-col min-h-screen">
+    <aside className="w-52 flex-shrink-0 bg-charcoal flex flex-col min-h-screen">
       <div className="px-4 py-6 border-b border-white/10">
-        <p className="text-blush font-bold tracking-widest text-lg">✦ CLAWS</p>
+        <p className="text-warm-white font-bold tracking-widest text-lg">✦ CLAWS</p>
         <p className="text-white/40 text-xs tracking-widest mt-0.5">ניהול</p>
       </div>
 
@@ -37,7 +37,7 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 text-sm border-r-4 transition-colors
                 ${isActive
-                  ? 'border-rose bg-white/10 text-blush'
+                  ? 'border-warm-white bg-white/10 text-warm-white'
                   : 'border-transparent text-white/60 hover:text-white hover:bg-white/5'}`}
             >
               <span>{item.icon}</span>
