@@ -5,9 +5,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
 const navItems = [
-  { href: '/admin', label: 'תורים', icon: '📅', exact: true },
+  { href: '/admin', label: 'תורים', icon: '📋', exact: true },
+  { href: '/admin/calendar', label: 'לוח שנה', icon: '📅', exact: false },
   { href: '/admin/services', label: 'שירותים', icon: '💅', exact: false },
   { href: '/admin/availability', label: 'זמינות', icon: '🕐', exact: false },
+  { href: '/admin/settings', label: 'הגדרות', icon: '⚙️', exact: false },
 ]
 
 export default function Sidebar() {
